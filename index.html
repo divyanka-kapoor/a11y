@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="a11y+ - AI-powered accessibility compliance. Scan, fix, and track - all at the code level. Join the waitlist today.">
+    <meta name="keywords" content="accessibility, a11y, WCAG, ADA compliance, website accessibility, AI accessibility">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="a11y+ | Websites. Automatically Accessible.">
+    <meta property="og:description" content="AI-powered accessibility compliance. Scan, fix, and track - all at the code level.">
+    <meta property="og:image" content="/og-image.png">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="a11y+ | Websites. Automatically Accessible.">
+    <meta name="twitter:description" content="AI-powered accessibility compliance. Scan, fix, and track - all at the code level.">
+    
+    <title>a11y+ | Websites. Automatically Accessible.</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'></text></svg>">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Skip link for keyboard users */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 0 0 4px 0;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Page Header */
+        .page-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 32px 40px;
+            z-index: 50;
+        }
+
+        .logo {
+            font-size: 20px;
+            color: #fff;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: lowercase;
+        }
+
+        /* Respect user motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .card-container {
+            perspective: 1500px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-wrapper {
+            position: relative;
+            padding: 3px;
+            border-radius: 24px;
+            background: linear-gradient(90deg, 
+                #00ff87 0%,
+                #60efff 15%,
+                #7b68ee 30%,
+                #ff6ec7 45%,
+                #ffa500 60%,
+                #ffed4e 75%,
+                #00ff87 100%
+            );
+            background-size: 200% 100%;
+            animation: borderFlow 3s linear infinite;
+            filter: drop-shadow(0 0 40px rgba(100, 255, 200, 0.4));
+        }
+
+        @keyframes borderFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .card {
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            min-height: 520px;
+            background: #0f0f0f;
+            border-radius: 22px;
+            padding: 50px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Focus styles for keyboard navigation */
+        .card:focus-within {
+            outline: 3px solid #60efff;
+            outline-offset: 5px;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .card-middle {
+            display: flex;
+            align-items: flex-start;
+            padding: 20px 0;
+        }
+
+        .card-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .card-title {
+            font-size: 34px;
+            color: #fff;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .card-description {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.7;
+            margin-top: 20px;
+        }
+
+        .card-footer {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            color: #fff;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.5px;
+        }
+
+        /* Waitlist Form */
+        .waitlist-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .email-input {
+            flex: 1;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #60efff;
+            box-shadow: 0 0 0 3px rgba(96, 239, 255, 0.2);
+        }
+
+        .email-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .submit-btn {
+            padding: 16px 32px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(96, 239, 255, 0.2);
+        }
+
+        .submit-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(96, 239, 255, 0.5);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .form-message {
+            font-size: 13px;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .form-message.success {
+            display: block;
+            color: #00ff87;
+            background: rgba(0, 255, 135, 0.15);
+            border: 2px solid rgba(0, 255, 135, 0.4);
+        }
+
+        .form-message.error {
+            display: block;
+            color: #ff6ec7;
+            background: rgba(255, 110, 199, 0.15);
+            border: 2px solid rgba(255, 110, 199, 0.4);
+        }
+
+        /* Visually hidden but screen reader accessible */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-header {
+                padding: 20px 24px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .card {
+                max-width: 100%;
+                padding: 40px 30px;
+                min-height: auto;
+            }
+
+            .card-title {
+                font-size: 28px;
+            }
+
+            .card-description {
+                font-size: 15px;
+            }
+
+            .form-group {
+                flex-direction: column;
+            }
+
+            .page-footer {
+                padding: 20px 24px;
+                font-size: 11px;
+                gap: 16px;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 0.6s linear infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Page Footer */
+        .page-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.4);
+            z-index: 50;
+        }
+
+        .page-footer a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .page-footer a:hover {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .page-footer a:focus {
+            outline: 2px solid #60efff;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        .footer-divider {
+            color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header class="page-header">
+        <div class="logo">a11y+</div>
+    </header>
+    
+    <main id="main-content" class="hero">
+        <div class="card-container">
+            <div class="card-wrapper">
+                <article class="card" id="card">
+                    <div class="gradient-glow" id="gradientGlow" aria-hidden="true"></div>
+                    <div class="color-layer" id="colorLayer" aria-hidden="true"></div>
+                    <div class="shimmer" id="shimmer" aria-hidden="true"></div>
+                    <div class="reflection" id="reflection" aria-hidden="true"></div>
+                    
+                    <div class="card-content">
+                        <header class="card-header">
+                            <h1 class="card-title">Websites. Automatically Accessible.</h1>
+                            <p class="card-description">
+                                AI-powered accessibility compliance. Scan, fix, and track - all at the code level.
+                            </p>
+                        </header>
+
+                        <div class="card-middle">
+                            <div class="card-stats">
+                                <div class="stat">
+                                    <div class="stat-label" id="deadline-label">US Title II Deadline</div>
+                                    <div 
+                                        class="stat-value" 
+                                        id="countdown"
+                                        aria-labelledby="deadline-label"
+                                        aria-live="off"
+                                    >
+                                        Loading...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <footer class="card-footer">
+                            <form class="waitlist-form" id="waitlistForm" novalidate>
+                                <label for="emailInput" class="sr-only">Email address</label>
+                                <div class="form-group">
+                                    <input 
+                                        type="email" 
+                                        class="email-input" 
+                                        id="emailInput"
+                                        name="email"
+                                        placeholder="Enter your email"
+                                        required
+                                        aria-required="true"
+                                        aria-describedby="formMessage"
+                                        autocomplete="email"
+                                    >
+                                    <button type="submit" class="submit-btn" id="submitBtn">
+                                        Join the Waitlist →
+                                    </button>
+                                </div>
+                                <div 
+                                    class="form-message" 
+                                    id="formMessage"
+                                    role="status"
+                                    aria-live="polite"
+                                ></div>
+                            </form>
+                        </footer>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <a href="/privacy-policy.html">Privacy Policy</a>
+        <span class="footer-divider">•</span>
+        <a href="/terms.html">Terms of Service</a>
+    </footer>
+
+    <script>
+        const card = document.getElementById('card');
+        const gradientGlow = document.getElementById('gradientGlow');
+        const colorLayer = document.getElementById('colorLayer');
+        const shimmer = document.getElementById('shimmer');
+        const reflection = document.getElementById('reflection');
+
+        // Check if user prefers reduced motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        let isHovering = false;
+        let isTyping = false;
+
+        // Detect when user is typing in the form
+        const emailInput = document.getElementById('emailInput');
+        emailInput.addEventListener('focus', () => {
+            isTyping = true;
+            if (!prefersReducedMotion) {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            }
+        });
+
+        emailInput.addEventListener('blur', () => {
+            isTyping = false;
+        });
+
+        card.addEventListener('mouseenter', () => {
+            isHovering = true;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            isHovering = false;
+            if (!prefersReducedMotion) {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            }
+        });
+
+        card.addEventListener('mousemove', (e) => {
+            if (!isHovering || prefersReducedMotion || isTyping) return;
+
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * 10;
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            card.style.transform = `
+                perspective(1000px)
+                rotateX(${-rotateX}deg) 
+                rotateY(${rotateY}deg) 
+                scale3d(1.03, 1.03, 1.03)
+            `;
+            
+            gradientGlow.style.left = `${x}px`;
+            gradientGlow.style.top = `${y}px`;
+            
+            colorLayer.style.left = `${x}px`;
+            colorLayer.style.top = `${y}px`;
+            
+            const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
+            reflection.style.background = `linear-gradient(${angle + 45}deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.08) 48%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.08) 52%,
+                transparent 100%)`;
+            
+            shimmer.style.transform = `rotate(${angle - 90}deg)`;
+        });
+
+        // Floating animation (only if user hasn't set reduced motion preference)
+        if (!prefersReducedMotion) {
+            let floatOffset = 0;
+            function floatAnimation() {
+                if (!isHovering) {
+                    floatOffset += 0.015;
+                    const floatY = Math.sin(floatOffset) * 3;
+                    if (card.style.transform === '' || card.style.transform === 'rotateX(0deg) rotateY(0deg) scale(1)') {
+                        card.style.transform = `translateY(${floatY}px)`;
+                    }
+                }
+                requestAnimationFrame(floatAnimation);
+            }
+            floatAnimation();
+        }
+
+        // Countdown timer (updates but doesn't announce to avoid overwhelming screen readers)
+        function updateCountdown() {
+            const targetDate = new Date('April 24, 2026 00:00:00').getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').textContent = 
+                `${days}d : ${hours}h : ${minutes}m : ${seconds}s`;
+
+            if (distance < 0) {
+                document.getElementById('countdown').textContent = 'EXPIRED';
+            }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Waitlist form handling
+        const form = document.getElementById('waitlistForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const formMessage = document.getElementById('formMessage');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            
+            // Basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                formMessage.className = 'form-message error';
+                formMessage.textContent = 'Please enter a valid email address.';
+                emailInput.focus();
+                return;
+            }
+
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = 'Joining... <span class="loading"></span>';
+            formMessage.style.display = 'none';
+
+            try {
+                // Simulate API call - replace with your backend
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                // Success
+                formMessage.className = 'form-message success';
+                formMessage.textContent = '🎉 You\'re on the list! Check your email for updates.';
+                emailInput.value = '';
+                
+                // Optional: Send to your backend
+                // await fetch('/api/waitlist', {
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ email })
+                // });
+                
+            } catch (error) {
+                formMessage.className = 'form-message error';
+                formMessage.textContent = 'Something went wrong. Please try again.';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Join the Waitlist →';
+            }
+        });
+    </script>
+</body>
+</html>
