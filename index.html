@@ -19,7 +19,7 @@
     <title>a11y+ | Websites. Automatically Accessible.</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'></text></svg>">
+    <!-- <link rel="icon" type="image/svg+xml"</text></svg>"> -->
     
     <style>
         * {
@@ -190,6 +190,7 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            margin-top: 10px;
         }
 
         .stat-label {
@@ -212,7 +213,9 @@
         .waitlist-form {
             display: flex;
             flex-direction: column;
+            align-items: center;
             gap: 12px;
+            margin-top: 70px;
         }
 
         .form-label {
@@ -417,11 +420,6 @@
         <div class="card-container">
             <div class="card-wrapper">
                 <article class="card" id="card">
-                    <div class="gradient-glow" id="gradientGlow" aria-hidden="true"></div>
-                    <div class="color-layer" id="colorLayer" aria-hidden="true"></div>
-                    <div class="shimmer" id="shimmer" aria-hidden="true"></div>
-                    <div class="reflection" id="reflection" aria-hidden="true"></div>
-                    
                     <div class="card-content">
                         <header class="card-header">
                             <h1 class="card-title">Websites. Automatically Accessible.</h1>
@@ -486,94 +484,8 @@
     </footer>
 
     <script>
-        const card = document.getElementById('card');
-        const gradientGlow = document.getElementById('gradientGlow');
-        const colorLayer = document.getElementById('colorLayer');
-        const shimmer = document.getElementById('shimmer');
-        const reflection = document.getElementById('reflection');
-
         // Check if user prefers reduced motion
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        let isHovering = false;
-        let isTyping = false;
-
-        // Detect when user is typing in the form
-        const emailInput = document.getElementById('emailInput');
-        emailInput.addEventListener('focus', () => {
-            isTyping = true;
-            if (!prefersReducedMotion) {
-                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-            }
-        });
-
-        emailInput.addEventListener('blur', () => {
-            isTyping = false;
-        });
-
-        card.addEventListener('mouseenter', () => {
-            isHovering = true;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            isHovering = false;
-            if (!prefersReducedMotion) {
-                card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
-            }
-        });
-
-        card.addEventListener('mousemove', (e) => {
-            if (!isHovering || prefersReducedMotion || isTyping) return;
-
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = ((y - centerY) / centerY) * 10;
-            const rotateY = ((x - centerX) / centerX) * 10;
-            
-            card.style.transform = `
-                perspective(1000px)
-                rotateX(${-rotateX}deg) 
-                rotateY(${rotateY}deg) 
-                scale3d(1.03, 1.03, 1.03)
-            `;
-            
-            gradientGlow.style.left = `${x}px`;
-            gradientGlow.style.top = `${y}px`;
-            
-            colorLayer.style.left = `${x}px`;
-            colorLayer.style.top = `${y}px`;
-            
-            const angle = Math.atan2(y - centerY, x - centerX) * (180 / Math.PI);
-            reflection.style.background = `linear-gradient(${angle + 45}deg, 
-                transparent 0%, 
-                rgba(255, 255, 255, 0.08) 48%,
-                rgba(255, 255, 255, 0.15) 50%,
-                rgba(255, 255, 255, 0.08) 52%,
-                transparent 100%)`;
-            
-            shimmer.style.transform = `rotate(${angle - 90}deg)`;
-        });
-
-        // Floating animation (only if user hasn't set reduced motion preference)
-        if (!prefersReducedMotion) {
-            let floatOffset = 0;
-            function floatAnimation() {
-                if (!isHovering) {
-                    floatOffset += 0.015;
-                    const floatY = Math.sin(floatOffset) * 3;
-                    if (card.style.transform === '' || card.style.transform === 'rotateX(0deg) rotateY(0deg) scale(1)') {
-                        card.style.transform = `translateY(${floatY}px)`;
-                    }
-                }
-                requestAnimationFrame(floatAnimation);
-            }
-            floatAnimation();
-        }
 
         // Countdown timer (updates but doesn't announce to avoid overwhelming screen readers)
         function updateCountdown() {
@@ -599,6 +511,7 @@
 
         // Waitlist form handling
         const form = document.getElementById('waitlistForm');
+        const emailInput = document.getElementById('emailInput');
         const submitBtn = document.getElementById('submitBtn');
         const formMessage = document.getElementById('formMessage');
 
@@ -627,7 +540,7 @@
                 
                 // Success
                 formMessage.className = 'form-message success';
-                formMessage.textContent = '🎉 You\'re on the list! Check your email for updates.';
+                formMessage.textContent = 'Thank you! We\'ll be in touch soon with early access details.';
                 emailInput.value = '';
                 
                 // Optional: Send to your backend
