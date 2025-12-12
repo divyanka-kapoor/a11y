@@ -350,9 +350,11 @@
             }
 
             .page-footer {
-                padding: 20px 24px;
-                font-size: 11px;
-                gap: 16px;
+                position: relative; /* Un-pins the footer */
+                bottom: auto;
+                padding: 40px 24px; /* Give it some breathing room */
+                background: #000;   /* solid background to be safe */
+                z-index: 1;
             }
         }
 
