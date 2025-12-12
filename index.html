@@ -286,7 +286,7 @@
         }
 
         .form-message {
-            font-size: 13px;
+            font-size: 16px;
             text-align: center;
             padding: 12px;
             border-radius: 8px;
@@ -296,16 +296,16 @@
 
         .form-message.success {
             display: block;
-            color: #00ff87;
-            background: rgba(0, 255, 135, 0.15);
-            border: 2px solid rgba(0, 255, 135, 0.4);
+            color: #ff6ec7;
+            /* background: rgba(0, 255, 135, 0.15); */
+            /* border: 2px solid rgba(0, 255, 135, 0.4); */
         }
 
         .form-message.error {
             display: block;
             color: #ff6ec7;
-            background: rgba(255, 110, 199, 0.15);
-            border: 2px solid rgba(255, 110, 199, 0.4);
+            /* background: rgba(255, 110, 199, 0.15); */
+            /* border: 2px solid rgba(255, 110, 199, 0.4); */
         }
 
         /* Visually hidden but screen reader accessible */
@@ -424,7 +424,7 @@
                         <header class="card-header">
                             <h1 class="card-title">Websites. Automatically Accessible.</h1>
                             <p class="card-description">
-                                AI-powered accessibility compliance. Scan, fix, and track - all at the code level.
+                                AI-powered accessibility compliance. </br> Scan, fix, and track defects - all at the code level.
                             </p>
                         </header>
 
@@ -514,6 +514,7 @@
         const emailInput = document.getElementById('emailInput');
         const submitBtn = document.getElementById('submitBtn');
         const formMessage = document.getElementById('formMessage');
+        const formGroup = form.querySelector('.form-group');
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -525,6 +526,7 @@
             if (!email || !emailRegex.test(email)) {
                 formMessage.className = 'form-message error';
                 formMessage.textContent = 'Please enter a valid email address.';
+                formMessage.style.display = 'block';
                 emailInput.focus();
                 return;
             }
@@ -538,10 +540,15 @@
                 // Simulate API call - replace with your backend
                 await new Promise(resolve => setTimeout(resolve, 1000));
                 
-                // Success
-                formMessage.className = 'form-message success';
-                formMessage.textContent = 'Thank you! We\'ll be in touch soon with early access details.';
-                emailInput.value = '';
+                // --- SUCCESS ACTION ---
+                    // 1. Hide the input and button
+                    formGroup.style.display = 'none'; 
+                    
+                    // 2. Show Success Message
+                    formMessage.className = 'form-message success';
+                    formMessage.textContent = 'Thank you! We\'ll be in touch soon.';
+                    formMessage.style.display = 'block';
+                    emailInput.value = '';
                 
                 // Optional: Send to your backend
                 // await fetch('/api/waitlist', {
@@ -551,12 +558,16 @@
                 // });
                 
             } catch (error) {
-                formMessage.className = 'form-message error';
-                formMessage.textContent = 'Something went wrong. Please try again.';
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Join the Waitlist →';
-            }
+                    // Error State
+                    console.error(error);
+                    formMessage.className = 'form-message error';
+                    formMessage.textContent = 'Something went wrong. Please try again.';
+                    formMessage.style.display = 'block';
+                    
+                    // Reset button only on error
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Join the Waitlist →';
+                }
         });
     </script>
 </body>
